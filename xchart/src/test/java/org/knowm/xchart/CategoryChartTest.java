@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.knowm.xchart.custom.CustomGraphic;
 import org.knowm.xchart.custom.CustomTheme;
 import org.knowm.xchart.internal.series.Series;
-import org.knowm.xchart.style.Styler;
 
 public class CategoryChartTest {
 
@@ -25,20 +24,11 @@ public class CategoryChartTest {
 
   @Test
   void constructor() {
-    CategoryChartBuilder builder =
-        new CategoryChartBuilder()
-            .width(800)
-            .height(600)
-            .theme(Styler.ChartTheme.GGPlot2)
-            .title("CategoryChart")
-            .xAxisTitle("x-axis")
-            .yAxisTitle("y-axis");
 
     assertAll(
         () -> assertDoesNotThrow(() -> new CategoryChart(800, 600)),
         () -> assertDoesNotThrow(() -> new CategoryChart(800, 600, new CustomTheme())),
-        () -> assertDoesNotThrow(() -> new CategoryChart(800, 600, XChart)),
-        () -> assertDoesNotThrow(() -> new CategoryChart(builder)));
+        () -> assertDoesNotThrow(() -> new CategoryChart(800, 600, XChart)));
   }
 
   @Test

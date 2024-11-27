@@ -28,7 +28,11 @@ public class CategoryChartBuilder extends ChartBuilder<CategoryChartBuilder, Cat
    */
   @Override
   public CategoryChart build() {
-
-    return new CategoryChart(this);
+    // Pass the configured properties to CategoryChart during creation
+    CategoryChart chart = new CategoryChart(this.width, this.height, this.chartTheme);
+    chart.setTitle(this.title);
+    chart.setXAxisTitle(this.xAxisTitle);
+    chart.setYAxisTitle(this.yAxisTitle);
+    return chart;
   }
 }

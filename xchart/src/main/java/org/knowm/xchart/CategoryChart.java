@@ -60,19 +60,6 @@ public class CategoryChart extends Chart<CategoryStyler, CategorySeries> {
   }
 
   /**
-   * Constructor
-   *
-   * @param chartBuilder
-   */
-  public CategoryChart(CategoryChartBuilder chartBuilder) {
-
-    this(chartBuilder.width, chartBuilder.height, chartBuilder.chartTheme);
-    setTitle(chartBuilder.title);
-    setXAxisTitle(chartBuilder.xAxisTitle);
-    setYAxisTitle(chartBuilder.yAxisTitle);
-  }
-
-  /**
    * Add a series for a Category type chart using using double arrays
    *
    * @param seriesName
