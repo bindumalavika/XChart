@@ -72,9 +72,9 @@ public class ChartZoom extends MouseAdapter implements ChartPart, ActionListener
     // or 2. nothing should be drawn or 3. the zoom area
     //    should be drawn
 
-    if (resetButton.visible && (x1 == -1 || x2 == -1)) { //
+    if (isResetButtonVisibleAndInvalidXCoordinates(x1, x2)) { //
       resetButton.paint(g);
-    } else if (x1 == -1 || x2 == -1) {
+    } else if (isEitherXInvalid(x1, x2)) {
       return;
     } else {
       g.setColor(xyChart.getStyler().getZoomSelectionColor());
@@ -240,5 +240,17 @@ public class ChartZoom extends MouseAdapter implements ChartPart, ActionListener
       isOverlapping = true;
     }
     return isOverlapping;
+  }
+  
+  private boolean isResetButtonVisible() {
+    return resetButton.visible;
+  }
+
+  private boolean isEitherXInvalid(int x1, int x2) {
+    return x1 == -1 || x2 == -1;
+  }
+
+  private boolean isResetButtonVisibleAndInvalidXCoordinates(int x1, int x2) {
+    return isResetButtonVisible() && isEitherXInvalid(x1, x2);
   }
 }
