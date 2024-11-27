@@ -331,25 +331,12 @@ public class AxisPair<ST extends AxesChartStyler, S extends AxesChartSeries> imp
       }
     }
     // infinity checks
-    if (xAxis.getMin() == Double.POSITIVE_INFINITY || xAxis.getMax() == Double.POSITIVE_INFINITY) {
-      throw new IllegalArgumentException(
-          "Series data (accounting for error bars too) cannot be equal to Double.POSITIVE_INFINITY!!!");
-    }
+    checkAxisForPositiveInfinity(xAxis);
     for (Axis<ST, S> ya : yAxisMap.values()) {
-      if (ya.getMin() == Double.POSITIVE_INFINITY || ya.getMax() == Double.POSITIVE_INFINITY) {
-        throw new IllegalArgumentException(
-            "Series data (accounting for error bars too) cannot be equal to Double.POSITIVE_INFINITY!!!");
-      }
-      if (ya.getMin() == Double.NEGATIVE_INFINITY || ya.getMax() == Double.NEGATIVE_INFINITY) {
-        throw new IllegalArgumentException(
-            "Series data (accounting for error bars too) cannot be equal to Double.NEGATIVE_INFINITY!!!");
-      }
+      checkAxisForPositiveInfinity(ya);
+      checkAxisForNegativeInfinity(ya);
     }
-
-    if (xAxis.getMin() == Double.NEGATIVE_INFINITY || xAxis.getMax() == Double.NEGATIVE_INFINITY) {
-      throw new IllegalArgumentException(
-          "Series data (accounting for error bars too) cannot be equal to Double.NEGATIVE_INFINITY!!!");
-    }
+    checkAxisForNegativeInfinity(xAxis);
   }
 
   /**
@@ -528,5 +515,19 @@ public class AxisPair<ST extends AxesChartStyler, S extends AxesChartSeries> imp
   Axis<ST, S> getRightMainYAxis() {
 
     return rightMainYAxis;
+  }
+
+  private void checkAxisForPositiveInfinity(Axis<ST, S> axis) {
+    if (axis.getMin() == Double.POSITIVE_INFINITY || axis.getMax() == Double.POSITIVE_INFINITY) {
+      throw new IllegalArgumentException(
+              "Series data (accounting for error bars too) cannot be equal to Double.POSITIVE_INFINITY!!!");
+    }
+  }
+
+  private void checkAxisForNegativeInfinity(Axis<ST, S> axis) {
+    if (axis.getMin() == Double.NEGATIVE_INFINITY || axis.getMax() == Double.NEGATIVE_INFINITY) {
+      throw new IllegalArgumentException(
+              "Series data (accounting for error bars too) cannot be equal to Double.NEGATIVE_INFINITY!!!");
+    }
   }
 }
