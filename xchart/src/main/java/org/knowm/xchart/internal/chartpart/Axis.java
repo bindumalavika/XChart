@@ -753,7 +753,10 @@ public class Axis<ST extends AxesChartStyler, S extends AxesChartSeries> impleme
 
     minVal = isLog ? Math.log10(minVal) : minVal;
     maxVal = isLog ? Math.log10(maxVal) : maxVal;
-    double value = ((screenPoint - margin - startOffset) * (maxVal - minVal) / tickSpace) + minVal;
+    double adjustedScreenPoint = screenPoint - margin - startOffset;
+    double valueRange = maxVal - minVal;
+    double normalizedValue = (adjustedScreenPoint * valueRange) / tickSpace;
+    double value = normalizedValue + minVal;
     value = isLog ? Math.pow(10, value) : value;
     return value;
   }
