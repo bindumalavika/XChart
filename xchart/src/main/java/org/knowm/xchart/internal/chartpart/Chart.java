@@ -3,6 +3,8 @@ package org.knowm.xchart.internal.chartpart;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -157,6 +159,28 @@ public abstract class Chart<ST extends Styler, S extends Series> {
   public void setYAxisGroupTitle(int yAxisGroup, String yAxisTitle) {
 
     yAxisGroupTitleMap.put(yAxisGroup, yAxisTitle);
+  }
+
+  public Rectangle2D getBoundsHint() {
+
+    if (this.getStyler().isChartTitleVisible() && this.getTitle().length() > 0) {
+
+      TextLayout textLayout =
+          new TextLayout(
+              this.getTitle(),
+              this.getStyler().getChartTitleFont(),
+              new FontRenderContext(null, true, false));
+      Rectangle2D rectangle = textLayout.getBounds();
+      double width = 2 * this.getStyler().getChartTitlePadding() + rectangle.getWidth();
+      double height = 2 * this.getStyler().getChartTitlePadding() + rectangle.getHeight();
+
+      return new Rectangle2D.Double(
+          Double.NaN, Double.NaN, width, height); // Double.NaN indicates not sure yet.
+    } else {
+      return new Rectangle2D
+          .Double(); // Constructs a new Rectangle2D, initialized to location (0, 0) and size (0,
+      // 0).
+    }
   }
 
   public void addAnnotation(Annotation annotation) {

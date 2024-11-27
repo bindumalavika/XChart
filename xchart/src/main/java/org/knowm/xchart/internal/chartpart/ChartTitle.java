@@ -99,35 +99,13 @@ public class ChartTitle<ST extends Styler, S extends Series> implements ChartPar
    *
    * @return a Rectangle2D defining the height of the chart title including the chart title padding
    */
-  private Rectangle2D getBoundsHint() {
-
-    if (chart.getStyler().isChartTitleVisible() && chart.getTitle().length() > 0) {
-
-      TextLayout textLayout =
-          new TextLayout(
-              chart.getTitle(),
-              chart.getStyler().getChartTitleFont(),
-              new FontRenderContext(null, true, false));
-      Rectangle2D rectangle = textLayout.getBounds();
-      double width = 2 * chart.getStyler().getChartTitlePadding() + rectangle.getWidth();
-      double height = 2 * chart.getStyler().getChartTitlePadding() + rectangle.getHeight();
-
-      return new Rectangle2D.Double(
-          Double.NaN, Double.NaN, width, height); // Double.NaN indicates not sure yet.
-    } else {
-      return new Rectangle2D
-          .Double(); // Constructs a new Rectangle2D, initialized to location (0, 0) and size (0,
-      // 0).
-    }
-  }
-
   @Override
   public Rectangle2D getBounds() {
 
     if (bounds
         == null) { // was not drawn fully yet, just need the height hint. The Plot object will be
       // asking for it.
-      bounds = getBoundsHint();
+      bounds = chart.getBoundsHint();
     }
     return bounds;
   }
